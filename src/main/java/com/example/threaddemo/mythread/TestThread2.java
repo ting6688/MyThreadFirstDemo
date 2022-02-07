@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 
 // 练习Thread,实现多线程同步下载图片
-public class TestThread2 extends Thread {
+public class TestThread2 implements Runnable {
     // 网络图片地址
     private String url;
     // 保存的文件名
@@ -32,11 +32,11 @@ public class TestThread2 extends Thread {
         TestThread2 t2 = new TestThread2("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2Fed%2F20%2F07%2Fed2007135110a9db844d74fcbaa825fc.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645687357&t=33e9ef32651b954c6a2aa7c27a189d95","2.JPG");
         TestThread2 t3 = new TestThread2("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2F44%2F65%2Ff8%2F4465f84e9ac886acd9f7702f60fd7f1b.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645687357&t=e9121c01fa330813724c95f3f6f1c2ff","3.JPG");
         // 先下载t1----顺序是可变的，同时执行每次下载的顺序都不一样
-        t1.start();
+        new Thread(t1).start();
         // 再下载t2
-        t2.start();
+        new Thread(t2).start();
         // 最后下载t3
-        t3.start();
+        new Thread(t3).start();
 
     }
 
