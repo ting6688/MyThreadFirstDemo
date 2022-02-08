@@ -1,0 +1,16 @@
+Index: src/main/java/com/example/threaddemo/testlambda/lambda.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/example/threaddemo/testlambda/lambda.java	(date 1644228865058)
++++ src/main/java/com/example/threaddemo/testlambda/lambda.java	(date 1644228865058)
+@@ -0,0 +1,8 @@
++package com.example.threaddemo.testlambda;
++
++
++/**
++ * lambda表达式 是希腊字母表中第11个字母
++ */
++public class lambda {
++}
