@@ -30,7 +30,8 @@ class BuyTicket implements  Runnable{
         }
     }
 
-    public void buyTicket(){
+    // synchronized 同步方法，锁的是this 10 9 8 7 ... 1
+    public synchronized  void buyTicket(){
         if(ticketNums<=0){
             flag = false;
             return;
