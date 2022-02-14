@@ -66,41 +66,54 @@ class SynContainer {
 
     // 生产者放入产品
     public synchronized void push(Chicken chicken) {
-        if (count == chickens.length) {
-            // 如果容器满了，就通知消费者消费
-            try {
-                this.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-//            return;
+        try {
+            if (count == chickens.length) {
+                // 如果容器满了，就通知消费者消费
+                try {
+                    this.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+    //            return;
 
+            }
+            // 如果容器未满，将产品放入容器
+            chickens[count] = chicken;
+            count++;
+            // 可以通知消费者消费了
+            this.notifyAll();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        // 如果容器未满，将产品放入容器
-        chickens[count] = chicken;
-        count++;
-        // 可以通知消费者消费了
-        this.notifyAll();
     }
 
     // 消费者消费
     public synchronized Chicken pop() {
-        if (count == 0) {
-            // 如果容器为空，通知生产者生产，消费者等待
-            try {
-                this.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        Chicken chicken = null;
+        try {
+            if (count == 0) {
+                // 如果容器为空，通知生产者生产，消费者等待
+                try {
+                    this.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-        // 如果容器不空，消费者消费，消费完通知生产者生产
-        //  count-- 放在98行正常输出，放在100行当生产到11只鸡时会出现数组越界
-        count--; //todo为甚count-- 要放在前面
-        Chicken chicken = chickens[count];
-//        count--;
+            System.out.println("消费，count:"+count);
+//            生产了10只鸡
+//            消费，count:10
 
-        // 吃完了，通知生产者生产
-        this.notifyAll();
+            // 如果容器不空，消费者消费，消费完通知生产者生产
+            //  count-- 放在98行正常输出，放在100行当生产到11只鸡时会出现数组越界
+//            count--; //todo为甚count-- 要放在前面
+            chicken = chickens[count];
+             count--;
+
+            // 吃完了，通知生产者生产
+            this.notifyAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return chicken;
     }
 
